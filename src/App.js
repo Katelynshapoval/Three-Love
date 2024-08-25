@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Options from "./options";
+import Flashlight from "./flashlight";
+import React, { useState } from "react";
 
 function App() {
+  const [hideMenu, setHideMenu] = useState(false);
+  const [hideFlashlight, setHideFlashlight] = useState(true);
+  const [hideGame, setHideGame] = useState(true);
+  const [hideRobots, setHideRobots] = useState(true);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Options
+        hide={hideMenu}
+        setHide={(newHide) => setHideMenu(newHide)}
+        hideFlash={hideFlashlight}
+        setHideFlash={(newHide) => setHideFlashlight(newHide)}
+      />
+      <Flashlight
+        hide={hideFlashlight}
+        setHide={(newHide) => setHideFlashlight(newHide)}
+      />
     </div>
   );
 }
