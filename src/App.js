@@ -1,6 +1,7 @@
 import "./App.css";
 import Options from "./options";
 import Flashlight from "./flashlight";
+import Game from "./game";
 import React, { useState } from "react";
 
 function App() {
@@ -13,13 +14,15 @@ function App() {
       <Options
         hide={hideMenu}
         setHide={(newHide) => setHideMenu(newHide)}
-        hideFlash={hideFlashlight}
+        // hideFlash={hideFlashlight}
         setHideFlash={(newHide) => setHideFlashlight(newHide)}
+        setHideGame={(newHide) => setHideGame(newHide)}
       />
       <Flashlight
         hide={hideFlashlight}
         setHide={(newHide) => setHideFlashlight(newHide)}
       />
+      <Game hide={hideGame} />
     </div>
   );
 }

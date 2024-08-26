@@ -1,16 +1,22 @@
-export default function Options({ hide, setHide, hideFlash, setHideFlash }) {
+export default function Options({ hide, setHide, setHideFlash, setHideGame }) {
   let classes = `miniProjects ${hide ? "hide" : ""}`;
-  function hi() {
+  function hideFlash() {
     setHide(true);
     setHideFlash(false);
-    console.log(classes);
+  }
+  function hideGame() {
+    setHide(true);
+    setHideGame(false);
   }
   return (
     <div className={classes}>
-      <div className="project flashlight" onClick={hi}>
-        Find the affirmation
+      <div className="project flashlight" onClick={hideFlash}>
+        Find the <br /> <br />
+        affirmation
       </div>
-      <div className="project game">Game</div>
+      <div className="project game" onClick={hideGame}>
+        Game
+      </div>
       <div className="project robots">Chat</div>
     </div>
   );
