@@ -68,3 +68,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Flashlight Project
+
+## Overview
+
+The Flashlight Project is an interactive React application that simulates a flashlight effect following the mouse cursor. It also displays a series of quotes at predefined positions on the screen. The flashlight can be toggled on and off by clicking the mouse.
+
+## Features
+
+- **Dynamic Flashlight Effect**: The flashlight follows the mouse cursor.
+- **Toggle Light**: Click the mouse to turn the flashlight on or off.
+- **Quotes Display**: Predefined quotes appear at fixed positions on the screen.
+
+# Game Project
+
+## Overview
+
+The Game Project is a React application where users can control a character on the screen using arrow keys or on-screen buttons. The goal is to collide with an award, which will then move to a random position and hide.
+
+## Features
+
+- **Character Movement**: Move the character using arrow keys or on-screen buttons.
+- **Award Interaction**: The award moves to a random position and hides when the character collides with it.

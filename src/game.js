@@ -1,63 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function Game({ hide }) {
   const classes = `gameProject ${hide ? "hide" : ""}`;
   const [left, setLeft] = useState(0); // Initialize left state
   const [top, setTop] = useState(0); // Initialize top state
   const [awardPosition, setAwardPosition] = useState({ left: 100, top: 100 });
-  // [phrase, count]
   const [phrase, setPhrase] = useState(["", 0]);
   const [awardHidden, setAwardHidden] = useState(false);
 
-  const handleMove = (direction) => {
-    const step = 10; // Movement step in pixels
+  // Ref to keep track of pressed keys
+  const keysPressed = useRef({});
+
+  const handleMove = () => {
+    const step = 5; // Movement step in pixels
     const characterSize = 50; // Assuming the character size is 50x50 pixels
 
-    if (direction === "right") {
-      // Move right if the character is not at the right edge of the screen
-      if (left + step + characterSize <= window.innerWidth) {
-        setLeft((prev) => prev + step);
-      }
-    } else if (direction === "left") {
-      // Move left if the character is not at the left edge of the screen
-      if (left - step >= 0) {
-        setLeft((prev) => prev - step);
-      }
-    } else if (direction === "up") {
-      // Move up if the character is not at the top edge of the screen
-      if (top - step >= 0) {
-        setTop((prev) => prev - step);
-      }
-    } else if (direction === "down") {
-      // Move down if the character is not at the bottom edge of the screen
-      if (top + step + characterSize <= window.innerHeight) {
-        setTop((prev) => prev + step);
-      }
+    // Move right if the character is not at the right edge of the screen
+    if (
+      keysPressed.current["ArrowRight"] &&
+      left + step + characterSize <= window.innerWidth
+    ) {
+      setLeft((prev) => prev + step);
+    }
+    // Move left if the character is not at the left edge of the screen
+    if (keysPressed.current["ArrowLeft"] && left - step >= 0) {
+      setLeft((prev) => prev - step);
+    }
+    // Move up if the character is not at the top edge of the screen
+    if (keysPressed.current["ArrowUp"] && top - step >= 0) {
+      setTop((prev) => prev - step);
+    }
+    // Move down if the character is not at the bottom edge of the screen
+    if (
+      keysPressed.current["ArrowDown"] &&
+      top + step + characterSize <= window.innerHeight
+    ) {
+      setTop((prev) => prev + step);
     }
   };
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      const keyToDirection = {
-        ArrowRight: "right",
-        ArrowLeft: "left",
-        ArrowUp: "up",
-        ArrowDown: "down",
-      };
-      const direction = keyToDirection[event.key];
-      if (direction) {
-        handleMove(direction);
-      }
-    };
-
-    // Add event listener for keydown
-    window.addEventListener("keydown", handleKeyDown);
+    // Interval to move the character continuously
+    const interval = setInterval(handleMove, 20); // Move every 20ms
 
     return () => {
-      // Clean up the event listener on component unmount
-      window.removeEventListener("keydown", handleKeyDown);
+      clearInterval(interval); // Clean up interval on component unmount
     };
   }, [left, top]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      keysPressed.current[event.key] = true;
+    };
+
+    const handleKeyUp = (event) => {
+      keysPressed.current[event.key] = false;
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
 
   useEffect(() => {
     const checkCollision = () => {
@@ -108,8 +115,8 @@ export default function Game({ hide }) {
         className="character"
         style={{
           position: "absolute",
-          left: `${left}px`, // Apply the position state to the left property
-          top: `${top}px`, // Apply the position state to the top property
+          left: `${left}px`,
+          top: `${top}px`,
           width: "50px",
           height: "50px",
           backgroundColor: "black",
@@ -217,6 +224,11 @@ export default function Game({ hide }) {
       <div
         className={`award ${awardHidden ? "hide" : ""}`}
         style={{
+          position: "absolute",
+          width: "40px",
+          height: "40px",
+          borderRadius: "50%",
+          backgroundColor: "gold",
           left: `${awardPosition.left}px`,
           top: `${awardPosition.top}px`,
         }}
