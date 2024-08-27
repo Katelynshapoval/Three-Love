@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Three-Love/static/css/main.20fb37ea.css",
+    "main.js": "/Three-Love/static/js/main.5690e077.js",
+    "static/media/home.jpg": "/Three-Love/static/media/home.a8589738eb009c378645.jpg",
+    "static/media/flashlight.jpg": "/Three-Love/static/media/flashlight.985651681e24588347ba.jpg",
+    "static/media/game.jpg": "/Three-Love/static/media/game.b8a3eaf591c83c48c983.jpg",
+    "index.html": "/Three-Love/index.html",
+    "main.20fb37ea.css.map": "/Three-Love/static/css/main.20fb37ea.css.map",
+    "main.5690e077.js.map": "/Three-Love/static/js/main.5690e077.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.20fb37ea.css",
+    "static/js/main.5690e077.js"
+  ]
+}
