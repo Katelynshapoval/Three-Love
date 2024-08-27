@@ -17,7 +17,6 @@ export default function Options({ hide, setHide, setHideFlash, setHideGame }) {
       <div className="project game" onClick={hideGame}>
         Game
       </div>
-      <div className="project robots">Chat</div>
     </div>
   );
 }

@@ -56,9 +56,6 @@ body {
 .game {
   background-image: url(../public/images/game.jpg); /* Game project background */
 }
-.robots {
-  background-image: url(../public/images/robots.jpg); /* Robots project background */
-}
 
 /* Hide class to toggle visibility */
 .hide {
@@ -131,8 +128,8 @@ body {
 }
 
 svg {
-  width: 80px; /* Default size for SVG arrows */
-  height: 80px;
+  width: 70px; /* Default size for SVG arrows */
+  height: 70px;
 }
 
 .arrow-down {
@@ -152,22 +149,37 @@ svg:active {
   position: absolute; /* Position absolutely on the page */
 }
 
+.award {
+  position: absolute;
+  background-color: #5eee9d;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.phrase {
+  position: absolute;
+  font-size: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
 /* Responsive styles for the Game Project */
 @media only screen and (max-width: 850px) {
   .gameProject img {
     height: 500px; /* Adjust image height on smaller screens */
   }
 }
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 700px) {
   .gameProject img {
     height: 370px; /* Further adjust image height on smaller screens */
   }
   svg {
-    height: 60px; /* Smaller SVG arrows on very small screens */
-    width: 60px;
+    height: 50px; /* Smaller SVG arrows on very small screens */
+    width: 50px;
   }
   .left-right svg {
-    margin: 0 30px; /* Adjust spacing between arrows */
+    margin: 0 20px; /* Adjust spacing between arrows */
   }
 }
 

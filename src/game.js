@@ -4,6 +4,10 @@ export default function Game({ hide }) {
   const classes = `gameProject ${hide ? "hide" : ""}`;
   const [left, setLeft] = useState(0); // Initialize left state
   const [top, setTop] = useState(0); // Initialize top state
+  const [awardPosition, setAwardPosition] = useState({ left: 100, top: 100 });
+  // [phrase, count]
+  const [phrase, setPhrase] = useState(["", 0]);
+  const [awardHidden, setAwardHidden] = useState(false);
 
   const handleMove = (direction) => {
     const step = 10; // Movement step in pixels
@@ -55,14 +59,60 @@ export default function Game({ hide }) {
     };
   }, [left, top]);
 
+  useEffect(() => {
+    const checkCollision = () => {
+      const character = document.querySelector(".character");
+      const award = document.querySelector(".award");
+
+      if (character && award) {
+        const characterRect = character.getBoundingClientRect();
+        const awardRect = award.getBoundingClientRect();
+
+        const isColliding = !(
+          characterRect.right < awardRect.left ||
+          characterRect.left > awardRect.right ||
+          characterRect.bottom < awardRect.top ||
+          characterRect.top > awardRect.bottom
+        );
+
+        if (isColliding) {
+          // Move award to a random position
+          const randomLeft = Math.random() * (window.innerWidth - 40); // 40 is the width of the award
+          const randomTop = Math.random() * (window.innerHeight - 40); // 40 is the height of the award
+
+          setAwardPosition({
+            left: randomLeft,
+            top: randomTop,
+          });
+          setPhrase(["i love you".slice(0, phrase[1]), phrase[1] + 1]);
+          if (phrase[1] === "i love you".length) {
+            setAwardHidden(true);
+            setTimeout(function () {
+              alert("oh wait...");
+              window.location.href =
+                "https://www.youtube.com/shorts/5E3rgG0aiNw";
+            }, 2000);
+          }
+        }
+      }
+    };
+
+    // Check for collision on every render
+    checkCollision();
+  }, [left, top]); // Dependency array to rerun the effect when character position changes
+
   return (
     <div className={classes}>
+      <div className="phrase">{phrase[0]}</div>
       <div
         className="character"
         style={{
           position: "absolute",
           left: `${left}px`, // Apply the position state to the left property
           top: `${top}px`, // Apply the position state to the top property
+          width: "50px",
+          height: "50px",
+          backgroundColor: "black",
         }}
       ></div>
       <div className="arrows">
@@ -164,6 +214,13 @@ export default function Game({ hide }) {
           </g>
         </svg>
       </div>
+      <div
+        className={`award ${awardHidden ? "hide" : ""}`}
+        style={{
+          left: `${awardPosition.left}px`,
+          top: `${awardPosition.top}px`,
+        }}
+      ></div>
     </div>
   );
 }

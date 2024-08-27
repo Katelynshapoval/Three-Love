@@ -8,7 +8,6 @@ function App() {
   const [hideMenu, setHideMenu] = useState(false);
   const [hideFlashlight, setHideFlashlight] = useState(true);
   const [hideGame, setHideGame] = useState(true);
-  const [hideRobots, setHideRobots] = useState(true);
   return (
     <div className="App">
       <Options
